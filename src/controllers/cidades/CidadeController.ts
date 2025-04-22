@@ -18,11 +18,18 @@ export class CidadesController {
     let validateData: ICidade | undefined = undefined;
 
     try {
-      validateData = await bodyValidation.validate(req.body);
-    } catch (error) {
-      const yupError = error as yup.ValidationError;
+      validateData = await bodyValidation.validate(req.body, { abortEarly: false });
+    } catch (err) {
+      const yupError = err as yup.ValidationError;
+      const errors: Record<string, string> = {};
 
-      res.status(StatusCodes.BAD_REQUEST).json({"error": yupError.message});
+      yupError.inner.forEach(error => {
+        if (error.path === undefined) return;
+
+        errors[error.path] = error.message;
+      });
+
+      res.status(StatusCodes.BAD_REQUEST).json({ errors });
     }
 
     res.status(StatusCodes.OK).json(validateData);
