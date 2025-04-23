@@ -1,19 +1,21 @@
 import { Request, Response } from "express";
 import { StatusCodes } from "http-status-codes";
 
-import { ICidade, IQuery } from "../../shared/validations/CidadeValidation";
+import { ICidade, IQueryProps } from "../../shared/validations/CidadeValidation";
 
 
 export class CidadesController {
   // eslint-disable-next-line @typescript-eslint/no-empty-object-type
-  static async create(req: Request<{}, {}, ICidade>, res: Response): Promise<void> {
-
-    res.status(StatusCodes.OK).json(req.body);
+  static async getAll(req: Request<{}, {}, {}, IQueryProps>, res: Response): Promise<void> {
+    console.log(req.query);
+    
+    res.status(StatusCodes.INTERNAL_SERVER_ERROR).send("Não implementado!");
   }
 
   // eslint-disable-next-line @typescript-eslint/no-empty-object-type
-  static async searchToQuery(req: Request<{}, {}, IQuery>, res: Response): Promise<void> {
+  static async create(req: Request<{}, {}, ICidade>, res: Response): Promise<void> {
+    console.log(req.body);
 
-    res.status(StatusCodes.OK).json(req.query);
+    res.status(StatusCodes.INTERNAL_SERVER_ERROR).send("Não implementado!");
   }
 }
