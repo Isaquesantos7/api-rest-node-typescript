@@ -25,4 +25,32 @@ export class Validation {
       }
     };
   }
+
+  static validateMultiple(schemas: Partial<Record<TProperty, yup.AnySchema>>) {
+    return async (req: Request, res: Response, next: NextFunction) => {
+      const validationErrors: Record<string, string> = {};
+  
+      for (const key of Object.keys(schemas) as TProperty[]) {
+        const schema = schemas[key];
+        if (!schema) continue;
+  
+        try {
+          await schema.validate(req[key], { abortEarly: false });
+        } catch (err) {
+          const yupError = err as yup.ValidationError;
+          yupError.inner.forEach((error) => {
+            if (error.path === undefined) return;
+            validationErrors[`${key}.${error.path}`] = error.message;
+          });
+        }
+      }
+  
+      if (Object.keys(validationErrors).length > 0) {
+        res.status(StatusCodes.BAD_REQUEST).json({ errors: validationErrors });
+        return;
+      }
+  
+      return next();
+    };
+  }
 }
