@@ -10,6 +10,10 @@ export interface IQueryProps {
   filter?: string;
 }
 
+export interface IParamsProps {
+  id?: number;
+}
+
 export const cidadeBodyValidation: yup.Schema<ICidade> = yup.object().shape({
   nome: yup.string().required().min(3),
 });
@@ -18,4 +22,8 @@ export const cidadeGetAllQueryValidation: yup.Schema<IQueryProps> = yup.object()
   page: yup.number().optional().moreThan(0),
   limit: yup.number().optional().moreThan(0),
   filter: yup.string().optional(),
+});
+
+export const cidadeGetByIdParamsValidation: yup.Schema<IParamsProps> = yup.object().shape({
+  id: yup.number().integer().required().moreThan(0),
 });
