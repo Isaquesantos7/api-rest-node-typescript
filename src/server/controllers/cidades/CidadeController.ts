@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { StatusCodes } from "http-status-codes";
 
-import { ICidade, IParamsProps, IQueryProps } from "../../shared/validations/CidadeValidation";
+import { IBodyProps, ICidade, IParamsProps, IQueryProps } from "../../shared/validations/CidadeValidation";
 
 
 export class CidadesController {
@@ -13,8 +13,16 @@ export class CidadesController {
   }
 
   // eslint-disable-next-line @typescript-eslint/no-empty-object-type
-  static async getById(req: Request<{}, {}, IParamsProps>, res: Response): Promise<void> {
+  static async getById(req: Request<IParamsProps, {}, {}>, res: Response): Promise<void> {
     console.log(req.params);
+
+    res.status(StatusCodes.INTERNAL_SERVER_ERROR).send('Não implementado!');
+  }
+
+  // eslint-disable-next-line @typescript-eslint/no-empty-object-type
+  static async updateById(req: Request<IParamsProps, {}, IBodyProps>, res: Response): Promise<void> {
+    console.log(req.params);
+    console.log(req.body);
 
     res.status(StatusCodes.INTERNAL_SERVER_ERROR).send('Não implementado!');
   }
