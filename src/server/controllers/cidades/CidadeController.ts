@@ -33,4 +33,11 @@ export class CidadesController {
 
     res.status(StatusCodes.INTERNAL_SERVER_ERROR).send("Não implementado!");
   }
+
+  // eslint-disable-next-line @typescript-eslint/no-empty-object-type
+  static async deleteById(req: Request<IParamsProps, {}, {}>, res: Response): Promise<void> {
+    console.log(req.params);
+
+    res.status(StatusCodes.INTERNAL_SERVER_ERROR).send("Não implementado!");
+  }
 }

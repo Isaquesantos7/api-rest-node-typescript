@@ -15,4 +15,6 @@ router.get("/cidades", Validation.validation(cidadeGetAllQueryValidation, "query
 router.get("/cidades/:id", Validation.validation(cidadeGetByIdParamsValidation, "params"), CidadesController.getById);
 router.put("/cidades/:id", Validation.validateMultiple({ params: cidadeGetByIdParamsValidation, body: cidadeUpdateByIdValidations }), CidadesController.updateById);
 router.post("/cidades", Validation.validation(cidadeBodyValidation), CidadesController.create);
+router.delete("/cidades/:id", Validation.validation(cidadeGetByIdParamsValidation, "params"), CidadesController.deleteById);
+
 export { router };
